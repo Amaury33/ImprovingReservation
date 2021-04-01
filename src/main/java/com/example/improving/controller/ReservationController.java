@@ -1,5 +1,6 @@
 package com.example.improving.controller;
 
+import com.example.improving.dto.ReservationDTO;
 import com.example.improving.model.Reservation;
 import com.example.improving.service.ReservationService;
 import java.util.List;
@@ -39,7 +40,7 @@ public class ReservationController {
      * @param reservation the reservation
      */
     @PostMapping(value="/saveReservation")
-    public void saveReservation(@RequestBody Reservation reservation) {
+    public void saveReservation(@RequestBody ReservationDTO reservation) {
       log.info("Saving reservation " + reservation);
       reservationService.saveReservation(reservation);
     }
@@ -50,7 +51,7 @@ public class ReservationController {
      * @param reservation the reservation
      */
     @DeleteMapping(value="/removeReservation")
-    public void removeReservation(@RequestBody Reservation reservation) {
+    public void removeReservation(@RequestBody ReservationDTO reservation) {
       log.info("Removing reservation " + reservation);
       reservationService.removeReservation(reservation);
     }

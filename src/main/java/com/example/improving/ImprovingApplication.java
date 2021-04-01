@@ -1,7 +1,6 @@
 package com.example.improving;
 
-import com.example.improving.model.Reservation;
-import com.example.improving.repository.ReservationRepository;
+import com.example.improving.dto.ReservationDTO;
 import com.example.improving.service.ReservationService;
 import java.time.LocalDateTime;
 import java.util.concurrent.ThreadLocalRandom;
@@ -43,7 +42,7 @@ public class ImprovingApplication implements CommandLineRunner {
 	  //Using IntStream
 	  IntStream.range(0, 15).forEach(
 	      i -> reservationService.saveReservation(
-	          Reservation.builder()
+	          ReservationDTO.builder()
 	          .id(i)
 	          .name("Reservation No. "
 	              + ThreadLocalRandom.current().nextInt(0, 100))

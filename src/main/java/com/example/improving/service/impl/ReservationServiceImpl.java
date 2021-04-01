@@ -1,11 +1,11 @@
 package com.example.improving.service.impl;
 
+import com.example.improving.dto.ReservationDTO;
+import com.example.improving.mapper.ReservationMapper;
 import com.example.improving.model.Reservation;
 import com.example.improving.repository.ReservationRepository;
 import com.example.improving.service.ReservationService;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 @Slf4j
 public class ReservationServiceImpl implements ReservationService {
-  
+
   /** The reservation repository. */
   @Autowired
   ReservationRepository reservationRepository;
@@ -32,7 +32,7 @@ public class ReservationServiceImpl implements ReservationService {
     log.info("getReservations method reached.");
     final List<Reservation> reservations = new ArrayList<>();
     reservationRepository.findAll()
-        .forEach(reservation -> reservations.add(reservation));
+        .forEach(reservations::add);
     return reservations;
   }
 
@@ -42,9 +42,11 @@ public class ReservationServiceImpl implements ReservationService {
    * @param reservation the reservation
    */
   @Override
-  public void saveReservation(Reservation reservation) {
+  public void saveReservation(ReservationDTO reservation) {
     log.info("Saving reservation: " + reservation);
-    reservationRepository.save(reservation);
+    reservationRepository
+        .save(ReservationMapper.INSTANCE
+            .reservationDTOToReservation(reservation));
   }
 
   /**
@@ -53,8 +55,10 @@ public class ReservationServiceImpl implements ReservationService {
    * @param reservation the reservation
    */
   @Override
-  public void removeReservation(Reservation reservation) {
+  public void removeReservation(ReservationDTO reservation) {
     log.info("Removing reservation: " + reservation);
-    reservationRepository.delete(reservation);
+    reservationRepository
+        .delete(ReservationMapper.INSTANCE
+            .reservationDTOToReservation(reservation));
   }
 }
